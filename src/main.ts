@@ -2,16 +2,10 @@ import { NestFactory } from '@nestjs/core';
 import { ValidationPipe } from '@nestjs/common';
 import { SwaggerModule, DocumentBuilder } from '@nestjs/swagger';
 import { AppModule } from './app.module';
-import { ExpressAdapter } from '@nestjs/platform-express';
-import express from 'express';
-
-const server = express();
-let cachedApp;
 
 async function bootstrap() {
-  const app = await NestFactory.create(AppModule, new ExpressAdapter(server));
+  const app = await NestFactory.create(AppModule);
 
-  // Global validation
   app.useGlobalPipes(
     new ValidationPipe({
       whitelist: true,
@@ -20,7 +14,6 @@ async function bootstrap() {
     }),
   );
 
-  // Swagger
   const config = new DocumentBuilder()
     .setTitle('Baster Nirman Backend API')
     .setDescription('Production-ready NestJS Backend with MongoDB')
@@ -33,14 +26,8 @@ async function bootstrap() {
 
   app.enableCors();
 
-  await app.init();
-  return server;
+  const port = process.env.PORT || 3000;
+  await app.listen(port, '0.0.0.0');
+  console.log(`Swagger documentation: http://localhost:${port}/api`);
 }
-
-// 👇 REQUIRED for Vercel
-export default async function handler(req, res) {
-  if (!cachedApp) {
-    cachedApp = await bootstrap();
-  }
-  return cachedApp(req, res);
-}
+bootstrap();
