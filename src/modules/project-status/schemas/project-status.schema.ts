@@ -16,4 +16,3 @@ export class ProjectStatus {
 }
 
 export const ProjectStatusSchema = SchemaFactory.createForClass(ProjectStatus);
-ProjectStatusSchema.index({ statusName: 1 });

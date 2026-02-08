@@ -1,7 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { S3Client, PutObjectCommand } from '@aws-sdk/client-s3';
 import { ConfigService } from '@nestjs/config';
-import { v4 as uuid } from 'uuid';
+import { randomUUID } from 'crypto';
 
 @Injectable()
 export class UploadService {
@@ -20,7 +20,7 @@ export class UploadService {
   }
 
   async uploadFile(fileBuffer: Buffer, fileName: string, contentType: string) {
-    const key = `${uuid()}-${fileName}`;
+    const key = `${randomUUID()}-${fileName}`;
 
     await this.s3Client.send(
       new PutObjectCommand({

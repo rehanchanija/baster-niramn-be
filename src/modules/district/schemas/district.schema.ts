@@ -16,4 +16,3 @@ export class District {
 }
 
 export const DistrictSchema = SchemaFactory.createForClass(District);
-DistrictSchema.index({ districtName: 1 });
