@@ -104,36 +104,6 @@ export class AuthService {
     };
   }
 
-  async adminLogin(loginDto: LoginDto) {
-    const user = await this.userModel.findOne({
-      email: loginDto.email,
-    });
-
-    if (!user || !(await bcrypt.compare(loginDto.password, user.password))) {
-      throw new UnauthorizedException('Invalid email or password');
-    }
-
-    if (user.role !== UserRole.ADMIN) {
-      throw new UnauthorizedException('Access denied. Admin only.');
-    }
-
-    const tokens = await this.getTokens(
-      user._id.toString(),
-      user.email,
-      user.role,
-    );
-
-    return {
-      ...tokens,
-      user: {
-        id: user._id,
-        name: user.name,
-        email: user.email,
-        role: user.role,
-      },
-    };
-  }
-
   async validateUser(userId: string) {
     return await this.userModel.findById(userId).select('-password');
   }

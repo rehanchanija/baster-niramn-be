@@ -1,5 +1,6 @@
 import { NestFactory } from '@nestjs/core';
 import { ValidationPipe } from '@nestjs/common';
+import { ConfigService } from '@nestjs/config';
 import { SwaggerModule, DocumentBuilder } from '@nestjs/swagger';
 import { AppModule } from './app.module';
 
@@ -26,7 +27,8 @@ async function bootstrap() {
 
   app.enableCors();
 
-  const port = process.env.PORT || 3000;
+  const configService = app.get(ConfigService);
+  const port = configService.get<number>('PORT') || 3001;
   await app.listen(port, '0.0.0.0');
   console.log(`Swagger documentation: http://localhost:${port}/api`);
 }

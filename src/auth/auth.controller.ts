@@ -115,40 +115,6 @@ export class AuthController {
     return this.authService.login(loginDto);
   }
 
-  @Post('admin/login')
-  @HttpCode(HttpStatus.OK)
-  @ApiOperation({
-    summary: 'Login admin',
-    description:
-      'Authenticate admin with email and password, returns JWT token. Only users with Admin role can use this.',
-  })
-  @ApiBody({
-    description: 'Admin login credentials',
-    type: LoginDto,
-  })
-  @ApiResponse({
-    status: HttpStatus.OK,
-    description: 'Admin logged in successfully',
-    schema: {
-      example: {
-        access_token: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...',
-        user: {
-          id: '507f1f77bcf86cd799439011',
-          name: 'Admin User',
-          email: 'admin@gmail.com',
-          role: 'admin123',
-        },
-      },
-    },
-  })
-  @ApiResponse({
-    status: HttpStatus.UNAUTHORIZED,
-    description: 'Invalid credentials or user is not an admin',
-  })
-  async adminLogin(@Body() loginDto: LoginDto) {
-    return this.authService.adminLogin(loginDto);
-  }
-
   @Get('me')
   @UseGuards(JwtAuthGuard)
   @ApiBearerAuth()
