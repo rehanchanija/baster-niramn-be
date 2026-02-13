@@ -21,6 +21,7 @@ import { UserRole } from '../../auth/schemas/user.schema';
 
 @ApiTags('Districts')
 @Controller('districts')
+@Roles(UserRole.ADMIN)
 @UseGuards(JwtAuthGuard, RolesGuard)
 @ApiBearerAuth()
 export class DistrictController {
@@ -35,14 +36,24 @@ export class DistrictController {
   }
 
   @Get()
-  @Roles(UserRole.ADMIN, UserRole.ENGINEER, UserRole.SUPERVISOR, UserRole.VIEWER)
+  @Roles(
+    UserRole.ADMIN,
+    UserRole.ENGINEER,
+    UserRole.SUPERVISOR,
+    UserRole.VIEWER,
+  )
   @ApiOperation({ summary: 'Get all districts' })
   async findAll() {
     return this.districtService.findAll();
   }
 
   @Get(':id')
-  @Roles(UserRole.ADMIN, UserRole.ENGINEER, UserRole.SUPERVISOR, UserRole.VIEWER)
+  @Roles(
+    UserRole.ADMIN,
+    UserRole.ENGINEER,
+    UserRole.SUPERVISOR,
+    UserRole.VIEWER,
+  )
   @ApiOperation({ summary: 'Get district by ID' })
   async findById(@Param('id') id: string) {
     return this.districtService.findById(id);

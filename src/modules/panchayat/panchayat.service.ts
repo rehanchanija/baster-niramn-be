@@ -18,11 +18,15 @@ export class PanchayatService {
   }
 
   async findAll(): Promise<Panchayat[]> {
-    return await this.panchayatModel.find().populate(['district', 'cityVillage']);
+    return await this.panchayatModel
+      .find()
+      .populate(['district', 'cityVillage', 'block']);
   }
 
   async findById(id: string): Promise<Panchayat> {
-    const panchayat = await this.panchayatModel.findById(id).populate(['district', 'cityVillage']);
+    const panchayat = await this.panchayatModel
+      .findById(id)
+      .populate(['district', 'cityVillage', 'block']);
     if (!panchayat) {
       throw new NotFoundException(`Panchayat with ID ${id} not found`);
     }

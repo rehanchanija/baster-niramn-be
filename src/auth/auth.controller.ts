@@ -144,4 +144,20 @@ export class AuthController {
   async getProfile(@Request() req) {
     return this.authService.validateUser(req.user.userId);
   }
+
+  @Get('users')
+  @UseGuards(JwtAuthGuard, RolesGuard)
+  @Roles(UserRole.ADMIN)
+  @ApiBearerAuth()
+  @ApiOperation({
+    summary: 'Admin: Get all users',
+    description: 'Retrieve a list of all registered users (Admin only)',
+  })
+  @ApiResponse({
+    status: HttpStatus.OK,
+    description: 'List of all users',
+  })
+  async getAllUsers() {
+    return this.authService.findAllUsers();
+  }
 }
