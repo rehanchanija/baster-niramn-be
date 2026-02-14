@@ -17,8 +17,6 @@ import { ProjectStatusModule } from './modules/project-status/project-status.mod
 import { CityVillageModule } from './modules/city-village/city-village.module';
 import { UploadModule } from './modules/upload/upload.module';
 import { DashboardModule } from './modules/dashboard/dashboard.module';
-import { StateModule } from './modules/state/state.module';
-import { BlockModule } from './modules/block/block.module';
 
 @Module({
   imports: [
@@ -49,8 +47,6 @@ import { BlockModule } from './modules/block/block.module';
     CityVillageModule,
     UploadModule,
     DashboardModule,
-    StateModule,
-    BlockModule,
   ],
 })
 export class AppModule {}

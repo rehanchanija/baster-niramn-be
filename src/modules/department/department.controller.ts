@@ -21,7 +21,6 @@ import { UserRole } from '../../auth/schemas/user.schema';
 
 @ApiTags('Departments')
 @Controller('departments')
-@Roles(UserRole.ADMIN)
 @UseGuards(JwtAuthGuard, RolesGuard)
 @ApiBearerAuth()
 export class DepartmentController {
@@ -36,24 +35,14 @@ export class DepartmentController {
   }
 
   @Get()
-  @Roles(
-    UserRole.ADMIN,
-    UserRole.ENGINEER,
-    UserRole.SUPERVISOR,
-    UserRole.VIEWER,
-  )
+  @Roles(UserRole.ADMIN, UserRole.ENGINEER, UserRole.SUPERVISOR, UserRole.VIEWER)
   @ApiOperation({ summary: 'Get all departments' })
   async findAll() {
     return this.departmentService.findAll();
   }
 
   @Get(':id')
-  @Roles(
-    UserRole.ADMIN,
-    UserRole.ENGINEER,
-    UserRole.SUPERVISOR,
-    UserRole.VIEWER,
-  )
+  @Roles(UserRole.ADMIN, UserRole.ENGINEER, UserRole.SUPERVISOR, UserRole.VIEWER)
   @ApiOperation({ summary: 'Get department by ID' })
   async findById(@Param('id') id: string) {
     return this.departmentService.findById(id);

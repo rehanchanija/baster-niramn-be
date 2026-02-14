@@ -108,13 +108,6 @@ export class AuthService {
     return await this.userModel.findById(userId).select('-password');
   }
 
-  async findAllUsers() {
-    return await this.userModel
-      .find()
-      .select('-password')
-      .sort({ createdAt: -1 });
-  }
-
   async getTokens(userId: string, email: string, role: UserRole) {
     const payload: JwtPayload = {
       sub: userId,

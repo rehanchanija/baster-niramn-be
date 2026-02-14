@@ -20,7 +20,6 @@ import { Roles } from '../../auth/decorators/roles.decorator';
 import { UserRole } from '../../auth/schemas/user.schema';
 
 @ApiTags('Work Subtypes')
-@Roles(UserRole.ADMIN)
 @Controller('work-subtypes')
 @UseGuards(JwtAuthGuard, RolesGuard)
 @ApiBearerAuth()
@@ -36,24 +35,14 @@ export class WorkSubtypeController {
   }
 
   @Get()
-  @Roles(
-    UserRole.ADMIN,
-    UserRole.ENGINEER,
-    UserRole.SUPERVISOR,
-    UserRole.VIEWER,
-  )
+  @Roles(UserRole.ADMIN, UserRole.ENGINEER, UserRole.SUPERVISOR, UserRole.VIEWER)
   @ApiOperation({ summary: 'Get all work subtypes' })
   async findAll() {
     return this.workSubtypeService.findAll();
   }
 
   @Get(':id')
-  @Roles(
-    UserRole.ADMIN,
-    UserRole.ENGINEER,
-    UserRole.SUPERVISOR,
-    UserRole.VIEWER,
-  )
+  @Roles(UserRole.ADMIN, UserRole.ENGINEER, UserRole.SUPERVISOR, UserRole.VIEWER)
   @ApiOperation({ summary: 'Get work subtype by ID' })
   async findById(@Param('id') id: string) {
     return this.workSubtypeService.findById(id);

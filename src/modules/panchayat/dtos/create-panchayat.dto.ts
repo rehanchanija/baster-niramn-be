@@ -45,13 +45,13 @@ export class CreatePanchayatDto {
   janpadPanchayatName?: string;
 
   @ApiPropertyOptional({
-    description: 'Block ID',
-    example: '60d0fe4f5311236168a109cc',
+    description: 'Block name',
+    example: 'Block A',
     type: String,
   })
   @IsString()
   @IsOptional()
-  blockId?: string;
+  blockName?: string;
 
   @ApiProperty({
     description: 'Sarpanch (Head) name',

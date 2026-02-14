@@ -13,12 +13,9 @@ import { CityVillageService } from './city-village.service';
 import { CreateCityVillageDto } from './dtos/create-city-village.dto';
 import { UpdateCityVillageDto } from './dtos/update-city-village.dto';
 import { JwtAuthGuard } from 'src/auth/guards/jwt-auth.guard';
-import { Roles } from 'src/auth/decorators/roles.decorator';
-import { UserRole } from 'src/auth/schemas/user.schema';
 
 @ApiTags('City/Village')
 @Controller('city-villages')
-@Roles(UserRole.ADMIN)
 @UseGuards(JwtAuthGuard)
 @ApiBearerAuth()
 export class CityVillageController {
